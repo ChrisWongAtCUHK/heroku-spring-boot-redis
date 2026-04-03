@@ -1,5 +1,9 @@
 package com.heroku.java.controller.redis;
 
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.heroku.java.model.Restaurant;
 import com.heroku.java.repository.RestaurantRespository;
 
@@ -36,6 +41,16 @@ public class RestaurantController {
 
     try {
       restaurants = restaurantRespository.findAll();
+      // TODO: to be deleted
+      // Save Redis Cloud sample_restaurant to file
+      try (FileWriter writer = new FileWriter("/Users/chriswong/Documents/Java/SpringBoot/heroku-spring-boot-redis/redis/sample_restaurant.json")) {
+        Gson gson = new Gson();
+        gson.toJson(restaurants, writer);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+      
     } catch (Exception e) {
       Restaurant restaurant = new Restaurant();
       restaurant.setName(e.getMessage());
