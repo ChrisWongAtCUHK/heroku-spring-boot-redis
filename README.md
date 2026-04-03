@@ -55,14 +55,14 @@ For more information about using Java on Heroku, see these Dev Center articles:
 
 # Deploy on Heroku with Aiven
 ```
-heroku create heroku-spring-boot-redis
+heroku create spring-boot-redis
 git push heroku main
 ```
 ```
 heroku config
-heroku config:set REDIS_HOST=${heroku config:set}
-heroku config:set REDIS_PWD=${heroku config:set}
-heroku config:set REDIS_PORT=${heroku config:set}
+heroku config:set REDIS_HOST=${REDIS_HOST}
+heroku config:set REDIS_PWD=${REDIS_PWD}
+heroku config:set REDIS_PORT=${REDIS_PORT}
 ```
 
 # Run with localhost docker MySQL server
