@@ -1,9 +1,11 @@
 package com.heroku.java.controller.redis;
 
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.Reader;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.heroku.java.model.Restaurant;
 import com.heroku.java.repository.RestaurantRespository;
 
@@ -29,31 +32,24 @@ public class RestaurantController {
   @GetMapping("")
   public List<Restaurant> getRestaurants(@RequestParam(required = false) String cuisine) {
     List<Restaurant> restaurants = new ArrayList<>();
-    if (cuisine != null) {
-      Iterable<Restaurant> iterable = restaurantRespository.searchByCuisine(cuisine);
-
-      for (Restaurant restaurant : iterable) {
-        restaurants.add(restaurant);
-      }
-
-      return restaurants;
-    }
-
     try {
-      restaurants = restaurantRespository.findAll();
-      // TODO: to be deleted
-      // Save Redis Cloud sample_restaurant to file
-      try (FileWriter writer = new FileWriter("/Users/chriswong/Documents/Java/SpringBoot/heroku-spring-boot-redis/redis/sample_restaurant.json")) {
-        Gson gson = new Gson();
-        gson.toJson(restaurants, writer);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      // 1. Create a Reader for the file
+      Reader reader = Files.newBufferedReader(Paths
+          .get("/Users/chriswong/Documents/Java/SpringBoot/heroku-spring-boot-redis/redis/sample_restaurant.json"));
 
-      
-    } catch (Exception e) {
-      Restaurant restaurant = new Restaurant();
-      restaurant.setName(e.getMessage());
+      // 2. Define the target type using TypeToken
+      Type listType = new TypeToken<List<Restaurant>>() {
+      }.getType();
+
+      // 3. Deserialize into the List
+      restaurants = new Gson().fromJson(reader, listType);
+
+      restaurantRespository.saveAll(restaurants);
+
+      // Close reader
+      reader.close();
+    } catch (Exception ex) {
+      ex.printStackTrace();
     }
     return restaurants;
   }
