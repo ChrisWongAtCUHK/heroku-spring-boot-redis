@@ -55,25 +55,17 @@ For more information about using Java on Heroku, see these Dev Center articles:
 
 # Deploy on Heroku with Aiven
 ```
-heroku create heroku-spring-boot
+heroku create heroku-spring-boot-redis
 git push heroku main
 ```
 ```
 heroku config
-
-heroku config:set AIVEN_SERVER=${AIVEN_SERVER}
-heroku config:set AIVEN_UID=${AIVEN_UID}
-heroku config:set AIVEN_PWD=${AIVEN_PWD}
-heroku config:set AIVEN_DATABASE=${AIVEN_DATABASE}
-heroku config:set AIVEN_PORT=${AIVEN_PORT}
+heroku config:set REDIS_HOST=${heroku config:set}
+heroku config:set REDIS_PWD=${heroku config:set}
+heroku config:set REDIS_PORT=${heroku config:set}
 ```
 
 # Run with localhost docker MySQL server
-## Run in terminal
-```
-export AIVEN_SERVER=localhost
-./mvnw spring-boot:run
-```
 ## Import quotes/localhost quotes.postman_collection.json in Postman
 ## Set Postman variable
 Set localhost_url to `http://localhost:5000`
