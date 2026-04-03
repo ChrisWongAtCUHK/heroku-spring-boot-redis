@@ -1,16 +1,24 @@
 package com.heroku.java.model;
 
-import org.springframework.data.redis.core.index.Indexed;
+import org.springframework.data.annotation.Id;
 
 import com.redis.om.spring.annotations.Document;
 
 @Document(value = "sample_restaurant", indexName = "idx:smpl_restaurant")
 public class Restaurant {
-  @Indexed
+  @Id 
+  private String id; // This will be auto-generated as a ULID
+  
   private String name;
   private String cuisine;
   private String location;
-
+  
+  public String getId() {
+    return id;
+  }
+  public void setId(String id) {
+    this.id = id;
+  }
   public String getName() {
     return name;
   }

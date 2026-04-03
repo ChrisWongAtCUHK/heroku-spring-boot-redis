@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +30,15 @@ public class RestaurantController {
       restaurant.setName(e.getMessage());
     }
     return restaurants;
+  }
+
+  @PostMapping("")
+  public String saveRestaurant(@RequestBody Restaurant restaurant) {
+    try{
+      restaurantRespository.save(restaurant);
+    } catch(Exception e) {
+      return e.getMessage();
+    }
+    return "";
   }
 }
