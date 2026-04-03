@@ -7,4 +7,5 @@ import com.redis.om.spring.repository.RedisDocumentRepository;
 
 @Repository
 public interface RestaurantRespository extends RedisDocumentRepository<Restaurant, String> {
+  public Iterable<Restaurant> searchByCuisine(String cuisine);
 }

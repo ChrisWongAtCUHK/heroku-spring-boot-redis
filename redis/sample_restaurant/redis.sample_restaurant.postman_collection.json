@@ -7,7 +7,7 @@
   },
   "item": [
     {
-      "name": "getAllRestaurants",
+      "name": "getRestaurants",
       "protocolProfileBehavior": {
         "disableBodyPruning": true,
         "disabledSystemHeaders": {
@@ -34,6 +34,45 @@
           "path": [
             "redis",
             "restaurants"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getRestaurantsByCuisine",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true,
+        "disabledSystemHeaders": {
+          "content-type": true
+        }
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/redis/restaurants?cuisine=Japanese",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "redis",
+            "restaurants"
+          ],
+          "query": [
+            {
+              "key": "cuisine",
+              "value": "Japanese"
+            }
           ]
         }
       },

@@ -3,13 +3,17 @@ package com.heroku.java.model;
 import org.springframework.data.annotation.Id;
 
 import com.redis.om.spring.annotations.Document;
+import com.redis.om.spring.annotations.Searchable;
 
 @Document(value = "sample_restaurant", indexName = "idx:smpl_restaurant")
 public class Restaurant {
   @Id 
   private String id; // This will be auto-generated as a ULID
   
+  @Searchable
   private String name;
+
+  @Searchable
   private String cuisine;
   private String location;
   
