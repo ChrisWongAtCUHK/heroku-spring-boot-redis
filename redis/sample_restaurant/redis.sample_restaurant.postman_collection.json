@@ -60,7 +60,7 @@
           }
         },
         "url": {
-          "raw": "{{base_url}}/redis/restaurants?cuisine=Vietnamese",
+          "raw": "{{base_url}}/redis/restaurants?cuisine=Hong Kong",
           "host": [
             "{{base_url}}"
           ],
@@ -71,7 +71,7 @@
           "query": [
             {
               "key": "cuisine",
-              "value": "Vietnamese"
+              "value": "Hong Kong"
             }
           ]
         }
@@ -79,7 +79,7 @@
       "response": []
     },
     {
-      "name": "saveRestaurant",
+      "name": "addRestaurant",
       "protocolProfileBehavior": {
         "disabledSystemHeaders": {
           "content-type": true
@@ -136,6 +136,45 @@
         "body": {
           "mode": "raw",
           "raw": "{\n    \"name\": \"Lan Fong Yuen\",\n    \"cuisine\": \"Hong Kong\",\n    \"location\": \"-97.6881,30.1887\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/redis/restaurants/{{sample_restaurant_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "redis",
+            "restaurants",
+            "{{sample_restaurant_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "updateRestaurantById",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {
+          "content-type": true
+        }
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Lan Fong Yuen 2\",\n    \"cuisine\": \"Hong Kong\",\n    \"location\": \"-97.6882,30.1888\"\n}",
           "options": {
             "raw": {
               "language": "json"

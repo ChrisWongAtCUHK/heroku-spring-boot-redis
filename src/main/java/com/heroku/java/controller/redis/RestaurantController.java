@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.heroku.java.model.Restaurant;
 import com.heroku.java.repository.RestaurantRespository;
+import com.heroku.java.service.IdGeneratorService;
 
 @RestController
 @RequestMapping("/redis/restaurants")
@@ -22,6 +23,9 @@ public class RestaurantController {
 
   @Autowired
   private RestaurantRespository restaurantRespository;
+
+  @Autowired
+  private IdGeneratorService idGeneratorService;
 
   @GetMapping("")
   public List<Restaurant> getRestaurants(@RequestParam(required = false) String cuisine) {
@@ -48,6 +52,7 @@ public class RestaurantController {
   @PostMapping("")
   public String saveRestaurant(@RequestBody Restaurant restaurant) {
     try {
+      restaurant.setId(idGeneratorService.generateId());
       restaurantRespository.save(restaurant);
     } catch (Exception e) {
       return e.getMessage();
@@ -64,6 +69,23 @@ public class RestaurantController {
       restaurant.setName(e.getMessage());
       return restaurant;
     }
+  }
+
+  @PostMapping("/{id}")
+  public Restaurant updateRestaurantById(@PathVariable("id") long id, @RequestBody Restaurant newRestaurant) {
+    Restaurant restaurant = new Restaurant();
+    try {
+      restaurant = restaurantRespository.findById(String.valueOf(id)).orElse(restaurant);
+      restaurant.setName(newRestaurant.getName());
+      restaurant.setCuisine(newRestaurant.getCuisine());
+      restaurant.setLocation(newRestaurant.getLocation());
+
+      restaurantRespository.save(restaurant);
+    } catch (Exception e) {
+      restaurant.setName(e.getMessage());
+      return restaurant;
+    }
+    return restaurant;
   }
 
   @DeleteMapping("/{id}")
