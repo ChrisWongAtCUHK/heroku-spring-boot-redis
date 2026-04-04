@@ -8,7 +8,7 @@ import com.redis.om.spring.annotations.Searchable;
 @Document(value = "sample_restaurant", indexName = "idx:smpl_restaurant")
 public class Restaurant {
   @Id 
-  private String id; // This will be auto-generated as a ULID
+  private long id;
   
   @Searchable
   private String name;
@@ -17,10 +17,10 @@ public class Restaurant {
   private String cuisine;
   private String location;
   
-  public String getId() {
+  public long getId() {
     return id;
   }
-  public void setId(String id) {
+  public void setId(long id) {
     this.id = id;
   }
   public String getName() {

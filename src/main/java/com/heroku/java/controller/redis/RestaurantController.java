@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.heroku.java.model.Restaurant;
 import com.heroku.java.repository.RestaurantRespository;
+import com.heroku.java.service.IdGeneratorService;
 
 @RestController
 @RequestMapping("/redis/restaurants")
@@ -28,6 +30,9 @@ public class RestaurantController {
 
   @Autowired
   private RestaurantRespository restaurantRespository;
+
+  @Autowired
+  private IdGeneratorService idGeneratorService;
 
   @GetMapping("")
   public List<Restaurant> getRestaurants(@RequestParam(required = false) String cuisine) {
@@ -44,6 +49,9 @@ public class RestaurantController {
       // 3. Deserialize into the List
       restaurants = new Gson().fromJson(reader, listType);
 
+      restaurants.forEach(restaurant -> {
+        restaurant.setId(idGeneratorService.generateId());
+      });
       restaurantRespository.saveAll(restaurants);
 
       // Close reader
@@ -58,6 +66,16 @@ public class RestaurantController {
   public String saveRestaurant(@RequestBody Restaurant restaurant) {
     try {
       restaurantRespository.save(restaurant);
+    } catch (Exception e) {
+      return e.getMessage();
+    }
+    return "";
+  }
+
+  @DeleteMapping("")
+  public String deleteAllRestaurants() {
+    try {
+      restaurantRespository.deleteAll();
     } catch (Exception e) {
       return e.getMessage();
     }
