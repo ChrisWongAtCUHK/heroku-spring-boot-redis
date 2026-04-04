@@ -49,10 +49,6 @@ For more information about using Java on Heroku, see these Dev Center articles:
 ## References
 - [Spring Boot Debugging: The Ultimate Guide with VS Code](https://www.youtube.com/watch?v=zJlEcgIVNP4)
 
-- [How to Set Up a MySQL Database in Java Spring Boot](https://www.twilio.com/en-us/blog/beginner-mysql-database-java-spring-boot)
- 
-# [Uploading Files](https://spring.io/guides/gs/uploading-files)
-
 # Deploy on Heroku with Aiven
 ```
 heroku create spring-boot-redis
@@ -69,5 +65,3 @@ heroku config:set REDIS_PORT=${REDIS_PORT}
 ## Import quotes/localhost quotes.postman_collection.json in Postman
 ## Set Postman variable
 Set localhost_url to `http://localhost:5000`
-
-## [Spring Data JPA Paging and Sorting example](https://mkyong.com/spring-boot/spring-data-jpa-paging-and-sorting-example/)
