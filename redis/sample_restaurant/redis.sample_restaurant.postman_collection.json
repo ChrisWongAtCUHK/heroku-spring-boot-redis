@@ -60,7 +60,7 @@
           }
         },
         "url": {
-          "raw": "{{base_url}}/redis/restaurants?cuisine=Japanese",
+          "raw": "{{base_url}}/redis/restaurants?cuisine=Vietnamese",
           "host": [
             "{{base_url}}"
           ],
@@ -71,7 +71,7 @@
           "query": [
             {
               "key": "cuisine",
-              "value": "Japanese"
+              "value": "Vietnamese"
             }
           ]
         }
@@ -115,6 +115,91 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "getRestaurantById",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true,
+        "disabledSystemHeaders": {
+          "content-type": true
+        }
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Lan Fong Yuen\",\n    \"cuisine\": \"Hong Kong\",\n    \"location\": \"-97.6881,30.1887\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/redis/restaurants/{{sample_restaurant_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "redis",
+            "restaurants",
+            "{{sample_restaurant_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "deleteRestaurantById",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {
+          "content-type": true
+        }
+      },
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Lan Fong Yuen\",\n    \"cuisine\": \"Hong Kong\",\n    \"location\": \"-97.6881,30.1887\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/redis/restaurants/{{sample_restaurant_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "redis",
+            "restaurants",
+            "{{sample_restaurant_id}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "sample_restaurant_id",
+      "value": ""
     }
   ]
 }
